@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central de Orçamentos</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="main-container">
+    <div class="global-layout">
+        <div class="calculators-column">
+            <nav class="calculators-nav">
+                <button class="nav-tab active" data-target="orcamento-calc">Orçamentos Gráficos</button>
+                <button class="nav-tab" data-target="impressao-calc">Calculadora de Impressão</button>
+                <button class="nav-tab" data-target="catalogo-calc">Catálogo de Produtos</button>
+            </nav>
+            <main class="calculators-content">
+                <div id="orcamento-calc" class="calculator-pane active">
+                    <form id="orcamentoForm">
+                        <h2>Criar Orçamento Gráfico</h2>
+                        <div class="form-group"><label for="largura">Largura (m)</label><input type="number" id="largura" step="0.01" placeholder="Ex: 1.50"><div class="quick-buttons"><button type="button" class="quick-btn" data-target="largura" data-value="0.05">+ 5cm</button><button type="button" class="quick-btn" data-target="largura" data-value="0.10">+ 10cm</button><button type="button" class="quick-btn" data-target="largura" data-value="0.50">+ 50cm</button><button type="button" class="quick-btn" data-target="largura" data-value="1.00">+ 1m</button></div></div>
+                        <div class="form-group"><label for="altura">Altura (m)</label><input type="number" id="altura" step="0.01" placeholder="Ex: 0.80"><div class="quick-buttons"><button type="button" class="quick-btn" data-target="altura" data-value="0.05">+ 5cm</button><button type="button" class="quick-btn" data-target="altura" data-value="0.10">+ 10cm</button><button type="button" class="quick-btn" data-target="altura" data-value="0.50">+ 50cm</button><button type="button" class="quick-btn" data-target="altura" data-value="1.00">+ 1m</button></div></div>
+                        <div class="form-group"><label for="quantidade">Quantidade</label><input type="number" id="quantidade" min="1" value="1"><div class="quick-buttons"><button type="button" class="quick-btn" data-target="quantidade" data-value="1">+1</button><button type="button" class="quick-btn" data-target="quantidade" data-value="5">+5</button><button type="button" class="quick-btn" data-target="quantidade" data-value="10">+10</button><button type="button" class="quick-btn" data-target="quantidade" data-value="50">+50</button></div></div>
+                        <div class="form-group"><label for="pesquisaProduto">Pesquisar Produto</label><input type="search" id="pesquisaProduto" placeholder="Digite para filtrar..."></div>
+                        <div class="form-group"><label for="produto">Tipo de Produto</label><select id="produto"></select></div>
+                        <button type="button" id="orcamento_addItemBtn" class="action-btn">Adicionar ao Orçamento</button>
+                    </form>
+                </div>
+                <div id="impressao-calc" class="calculator-pane">
+                    <form id="impressaoForm">
+                        <h2>Calculadora de Impressão</h2>
+                        <div class="form-group"><label for="impressao_qtdFolhas">Quantidade de Folhas</label><input type="number" id="impressao_qtdFolhas" min="1" value="1"><div class="quick-buttons"><button type="button" class="quick-btn" data-target="impressao_qtdFolhas" data-value="10">+10</button><button type="button" class="quick-btn" data-target="impressao_qtdFolhas" data-value="50">+50</button><button type="button" class="quick-btn" data-target="impressao_qtdFolhas" data-value="100">+100</button><button type="button" class="quick-btn" data-target="impressao_qtdFolhas" data-value="500">+500</button></div></div>
+                        <div class="form-group"><label for="impressao_pesquisaPapel">Pesquisar Tipo de Papel</label><input type="search" id="impressao_pesquisaPapel" placeholder="Digite para filtrar..."></div>
+                        <div class="form-group"><label for="impressao_tipoPapel">Tipo de Papel</label><select id="impressao_tipoPapel"></select></div>
+                        <div class="form-group optional-services"><div class="options-title">Serviços Opcionais</div><label><input type="checkbox" id="impressao_encadernacao"> <span>Encadernação</span></label><div id="encadernacao_obs" class="observation" style="display: none;">Acima de 200 folhas, dividir em outras apostilas.</div><label><input type="checkbox" id="impressao_capaDura" value="20.00"> Capa Dura (R$ 20,00)</label></div>
+                        <button type="button" id="impressao_addItemBtn" class="action-btn">Adicionar ao Orçamento</button>
+                    </form>
+                </div>
+                <div id="catalogo-calc" class="calculator-pane">
+                    <form id="catalogoForm">
+                        <h2>Catálogo de Produtos</h2>
+                        <div class="form-group"><label for="catalogo_pesquisa">Pesquisar Produto</label><input type="search" id="catalogo_pesquisa" placeholder="Digite para filtrar..."></div>
+                        <div class="form-group"><label for="catalogo_produto">Selecione o Produto</label><select id="catalogo_produto"></select></div>
+                        <div class="form-group"><label for="catalogo_qtd">Quantidade</label><input type="number" id="catalogo_qtd" min="1" value="1"><div class="quick-buttons"><button type="button" class="quick-btn" data-target="catalogo_qtd" data-value="1">+1</button><button type="button" class="quick-btn" data-target="catalogo_qtd" data-value="5">+5</button><button type="button" class="quick-btn" data-target="catalogo_qtd" data-value="10">+10</button></div></div>
+                        <button type="button" id="catalogo_addItemBtn" class="action-btn">Adicionar ao Orçamento</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+        <div class="sidebar-column">
+            <div id="global_itens-lista-section" class="itens-lista-section" style="display: none;">
+                <h3>Resumo do Orçamento</h3>
+                <ul id="global_listaItens" class="itens-lista"></ul>
+                <div id="global_subtotal-carrinho" class="subtotal-carrinho"></div>
+            </div>
+            <div class="final-section">
+                <div class="form-group">
+                    <label for="global_descontoValor">Desconto Final (Opcional)</label>
+                    <input type="number" id="global_descontoValor" step="0.01" placeholder="Valor do desconto">
+                    <div style="display: flex; gap: 20px; margin-top: 10px; color: var(--cor-texto-secundario);">
+                        <label><input type="radio" name="global_tipoDesconto" value="percent" checked> %</label>
+                        <label><input type="radio" name="global_tipoDesconto" value="fixed"> R$</label>
+                    </div>
+                </div>
+                <button type="button" id="global_finalizeBtn" class="action-btn btn-success">Finalizar Orçamento</button>
+            </div>
+            <div id="global_resultado" class="resultado"></div>
+            <div id="global_copy-section" class="copy-section" style="display: none;">
+                <label for="global_mensagemOrcamento">Resumo para Copiar:</label>
+                <textarea id="global_mensagemOrcamento" readonly rows="8"></textarea>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
